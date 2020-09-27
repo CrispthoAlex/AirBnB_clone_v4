@@ -5,7 +5,21 @@ header {
     border-bottom: 1px solid #CCCCCC;
 }
 header .logo {
+    position: absolute;
+    width: 30%;
     background: url("../images/logo.png") no-repeat;
     left: 20px;
     height: 100%;
+}
+header #api_status {
+    margin: 15px 0 15px 0;
+    position: absolute;
+    right: 30px;
+    height: 40px;
+    width: 40px;
+    background-color: #CCCCCC;
+    border-radius: 50%;
+}
+header #api_status.available {
+    background-color: #FF545F
 }
