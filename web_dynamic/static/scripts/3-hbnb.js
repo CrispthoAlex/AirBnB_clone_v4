@@ -22,34 +22,31 @@ $(document).ready(function () {
   });
 });
 /*
-API status
+  API status
+  Change to localhost=127.0.0.1 to test
 */
-$(function () {
-  $.get('http://0.0.0.0:5001/api/v1/status/', function (response) {
-    console.log(response.status);
-    if (response.status === 'OK') {
-      $('DIV#api_status').addClass('available');
-    } else {
-      $('DIV#api_status').removeClass('available');
-    }
-  });
+$.get('http://0.0.0.0:5001/api/v1/status/', function (response) {
+  console.log(response.status);
+  if (response.status === 'OK') {
+    $('DIV#api_status').addClass('available');
+  } else {
+    $('DIV#api_status').removeClass('available');
+  }
 });
 /*
-Fetch places
+  Fetch places
+  Change to localhost=127.0.0.1 to test
 */
-$(function () {
-  const data = {};
-  const url = 'http://0.0.0.0:5001/api/v1/places_search/';
-  $.ajax({
-    url: url,
-    type: 'POST',
-    data: data,
-    contentType: 'application/json',
-    dataType: 'json',
-    success: function (data) {
-      $('section.places').each(function (place) {
-        $(this).append(`<ARTICLE><div class="title_box"><h2>${place.name}</h2><div class="price_by_night">${place.price_by_night}</div></div><div class="information"><div class="max_guest">${place.max_guest} Guest{%if place.max_guest != 1 %}s{% endif %}</div><div class="number_rooms">${place.number_rooms} Bedroom{% if place.number_rooms != 1 %}s{% endif %}</div><div class="number_bathrooms">${place.number_bathrooms} Bathroom{% if place.number_bathrooms != 1 %}s{% edif %}</div></div><div class="user"><b>Owner:</b>${place.user.first_name} ${place.user.last_name}</div><div class="description">${place.description | safe}</div></ARTICLE>`);
-      });
-    }
-  });
+let place = {};
+$.ajax({
+  url: 'http://0.0.0.0:5001/api/v1/places_search/',
+  type: 'POST',
+  data: JSON.stringify(place), //Convert to text string json
+  contentType: 'application/json',
+  dataType: 'json',
+  success: function (places) {
+    $.each(places, function (iterator, place) {
+      $('section.places').append(`<ARTICLE><div class="title_box"><h2>${place.name}</h2><div class="price_by_night">${place.price_by_night}</div></div><div class="information"><div class="max_guest">${place.max_guest} Guest</div><div class="number_rooms">${place.number_rooms} Bedroom</div><div class="number_bathrooms">${place.number_bathrooms} Bathroom</div></div><div class="description">${place.description}</div></ARTICLE>`);
+    });
+  }
 });
