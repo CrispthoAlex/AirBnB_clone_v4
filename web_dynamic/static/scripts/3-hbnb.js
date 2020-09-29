@@ -37,11 +37,11 @@ $.get('http://0.0.0.0:5001/api/v1/status/', function (response) {
   Fetch places
   Change to localhost=127.0.0.1 to test
 */
-let place = {};
+const place = {};
 $.ajax({
   url: 'http://0.0.0.0:5001/api/v1/places_search/',
   type: 'POST',
-  data: JSON.stringify(place), //Convert to text string json
+  data: JSON.stringify(place), // Convert to text string json
   contentType: 'application/json',
   dataType: 'json',
   success: function (places) {
